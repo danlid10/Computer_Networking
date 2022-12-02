@@ -1,0 +1,4 @@
+﻿  channel.c
+C:\Electrical Engineering\Semester 6\Introduction to Computer Communications\Programming Assignments\PA1\channel\channel.c(120,37): warning C4133: 'function': incompatible types - from 'SOCKADDR_IN *' to 'const sockaddr *'
+C:\Electrical Engineering\Semester 6\Introduction to Computer Communications\Programming Assignments\PA1\channel\channel.c(131,41): warning C4133: 'function': incompatible types - from 'SOCKADDR_IN *' to 'sockaddr *'
+  channel.vcxproj -> C:\Electrical Engineering\Semester 6\Introduction to Computer Communications\Programming Assignments\PA1\Debug\channel.exe

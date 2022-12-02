@@ -1,0 +1,8 @@
+﻿  nsclient.c
+C:\Electrical Engineering\Semester 6\Introduction to Computer Communications\Programming Assignments\PA2_DNSclient\PA2\nsclient\nsclient.c(30,33): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+C:\Electrical Engineering\Semester 6\Introduction to Computer Communications\Programming Assignments\PA2_DNSclient\PA2\nsclient\nsclient.c(215,84): warning C4133: 'function': incompatible types - from 'SOCKADDR_IN *' to 'const sockaddr *'
+C:\Electrical Engineering\Semester 6\Introduction to Computer Communications\Programming Assignments\PA2_DNSclient\PA2\nsclient\nsclient.c(223,90): warning C4133: 'function': incompatible types - from 'SOCKADDR_IN *' to 'sockaddr *'
+C:\Electrical Engineering\Semester 6\Introduction to Computer Communications\Programming Assignments\PA2_DNSclient\PA2\nsclient\nsclient.c(262,27): warning C4047: '=': 'char **' differs in levels of indirection from 'unsigned char *'
+C:\Electrical Engineering\Semester 6\Introduction to Computer Communications\Programming Assignments\PA2_DNSclient\PA2\nsclient\nsclient.c(189,102): warning C4101: 'rname_offset': unreferenced local variable
+C:\Electrical Engineering\Semester 6\Introduction to Computer Communications\Programming Assignments\PA2_DNSclient\PA2\nsclient\nsclient.c(264): warning C4172: returning address of local variable or temporary: hstnt
+  nsclient.vcxproj -> C:\Electrical Engineering\Semester 6\Introduction to Computer Communications\Programming Assignments\PA2_DNSclient\PA2\x64\Debug\nsclient.exe

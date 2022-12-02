@@ -1,0 +1,4 @@
+﻿  receiver.c
+C:\Electrical Engineering\Semester 6\Introduction to Computer Communications\Programming Assignments\PA1\receiver\receiver.c(148,47): warning C4133: 'function': incompatible types - from 'SOCKADDR_IN *' to 'const sockaddr *'
+C:\Electrical Engineering\Semester 6\Introduction to Computer Communications\Programming Assignments\PA1\receiver\receiver.c(165,25): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+  receiver.vcxproj -> C:\Electrical Engineering\Semester 6\Introduction to Computer Communications\Programming Assignments\PA1\x64\Debug\receiver.exe

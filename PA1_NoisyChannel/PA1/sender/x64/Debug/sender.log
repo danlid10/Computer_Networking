@@ -1,0 +1,5 @@
+﻿  sender.c
+C:\Electrical Engineering\Semester 6\Introduction to Computer Communications\Programming Assignments\PA1\sender\sender.c(60,13): warning C4020: 'rewind': too many actual parameters
+C:\Electrical Engineering\Semester 6\Introduction to Computer Communications\Programming Assignments\PA1\sender\sender.c(144,47): warning C4133: 'function': incompatible types - from 'SOCKADDR_IN *' to 'const sockaddr *'
+C:\Electrical Engineering\Semester 6\Introduction to Computer Communications\Programming Assignments\PA1\sender\sender.c(170,22): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+  sender.vcxproj -> C:\Electrical Engineering\Semester 6\Introduction to Computer Communications\Programming Assignments\PA1\x64\Debug\sender.exe
