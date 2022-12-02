@@ -1,6 +1,6 @@
 ﻿  channel.c
-C:\Electrical Engineering\Semester 6\Introduction to Computer Communications\Programming Assignments\PA1\channel\channel.c(123,37): warning C4133: 'function': incompatible types - from 'SOCKADDR_IN *' to 'const sockaddr *'
-C:\Electrical Engineering\Semester 6\Introduction to Computer Communications\Programming Assignments\PA1\channel\channel.c(134,41): warning C4133: 'function': incompatible types - from 'SOCKADDR_IN *' to 'sockaddr *'
-C:\Electrical Engineering\Semester 6\Introduction to Computer Communications\Programming Assignments\PA1\channel\channel.c(196,51): warning C4101: 'sender_sock': unreferenced local variable
-C:\Electrical Engineering\Semester 6\Introduction to Computer Communications\Programming Assignments\PA1\channel\channel.c(196,64): warning C4101: 'receiver_sock': unreferenced local variable
-  channel.vcxproj -> C:\Electrical Engineering\Semester 6\Introduction to Computer Communications\Programming Assignments\PA1\x64\Debug\channel.exe
+C:\Git_Projects\Computer_Communications_Course\PA1_NoisyChannel\PA1\channel\channel.c(95,37): warning C4133: 'function': incompatible types - from 'SOCKADDR_IN *' to 'const sockaddr *'
+C:\Git_Projects\Computer_Communications_Course\PA1_NoisyChannel\PA1\channel\channel.c(106,41): warning C4133: 'function': incompatible types - from 'SOCKADDR_IN *' to 'sockaddr *'
+C:\Git_Projects\Computer_Communications_Course\PA1_NoisyChannel\PA1\channel\channel.c(168,51): warning C4101: 'sender_sock': unreferenced local variable
+C:\Git_Projects\Computer_Communications_Course\PA1_NoisyChannel\PA1\channel\channel.c(168,64): warning C4101: 'receiver_sock': unreferenced local variable
+  channel.vcxproj -> C:\Git_Projects\Computer_Communications_Course\PA1_NoisyChannel\PA1\x64\Debug\channel.exe

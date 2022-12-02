@@ -1,24 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-#define _WINSOCK_DEPRECATED_NO_WARNINGS 
-#include <winsock2.h>
-#include <ws2tcpip.h>
-#pragma comment(lib,"ws2_32.lib") 
-
-#define MAX_FILENAME 100
-#define MSG_SIZE 1000000
-
-
-int get_file_name(char file_name[]);
-void flip_bit(char buffer[], int n_bit);
-char get_bit(char buffer[], int n_bit);
-int hamming_decode(char buffer[], int size, char uh_buffer[]);
-int is2pow(int num);
-void set_bit(char buffer[], int n_bit, int val);
-
+#include "receiver.h"
 
 // get file name from the user, return 0 if user entered "quit"
 int get_file_name(char file_name[])
@@ -60,9 +40,9 @@ int is2pow(int num)
 	return !(num & (num - 1));
 }
 
-int hamming_decode(char buffer[], int size, char uh_buffer[])
+int hamming_decode(char buffer[], int size, char dehammed_buffer[])
 {
-	int block, offset, uh_offset, check_idx, wrong_bit, bits_corrected = 0;
+	int block, offset, dehammed_offset, check_idx, wrong_bit, bits_corrected = 0;
 	int Check[5] = { 0 };
 
 	for (block = 0; block < (8 * size) / 31; block++)
@@ -90,11 +70,11 @@ int hamming_decode(char buffer[], int size, char uh_buffer[])
 		}
 	
 		// Set data bits to the new buffer
-		for (uh_offset = 0, offset = 0; offset < 31; offset++)
+		for (dehammed_offset = 0, offset = 0; offset < 31; offset++)
 			if (!is2pow(offset + 1))
 			{
-				set_bit(uh_buffer, uh_offset + 26 * block, get_bit(buffer, offset + 31 * block));
-				uh_offset++;
+				set_bit(dehammed_buffer, dehammed_offset + 26 * block, get_bit(buffer, offset + 31 * block));
+				dehammed_offset++;
 			}
 			
 	}
@@ -106,7 +86,7 @@ int main(int argc, char* argv[])
 {
 	int status, received_bytes, size, bits_corrected;
 	char file_name[MAX_FILENAME], buffer[MSG_SIZE];
-	char* uh_buffer;
+	char* dehammed_buffer;
 	WSADATA wsaData;
 	SOCKET sock;
 	SOCKADDR_IN server;
@@ -163,13 +143,13 @@ int main(int argc, char* argv[])
 
 		// Hamming decoding
 		size = received_bytes * (26.0 / 31.0);
-		uh_buffer = (char*)malloc(sizeof(char) * size);
-		if (uh_buffer == NULL)
+		dehammed_buffer = (char*)malloc(sizeof(char) * size);
+		if (dehammed_buffer == NULL)
 		{
 			fprintf(stderr, "Memory alloaction failed\n");
 			exit(1);
 		}
-		bits_corrected = hamming_decode(buffer, received_bytes, uh_buffer);
+		bits_corrected = hamming_decode(buffer, received_bytes, dehammed_buffer);
 
 		// Write data to file
 		fp = fopen(file_name, "wb");
@@ -178,13 +158,13 @@ int main(int argc, char* argv[])
 			fprintf(stderr, "File opening failed\n");
 			exit(1);
 		}
-		fwrite(uh_buffer, sizeof(char), size, fp);
+		fwrite(dehammed_buffer, sizeof(char), size, fp);
 		fclose(fp);
 
 		printf("wrote: %d bytes\n", size);
 		printf("corrected %d errors\n", bits_corrected);
 
-		free(uh_buffer);
+		free(dehammed_buffer);
 
 		closesocket(sock);
 

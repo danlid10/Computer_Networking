@@ -1,22 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-#define _WINSOCK_DEPRECATED_NO_WARNINGS 
-#include <winsock2.h>
-#include <ws2tcpip.h>
-#pragma comment(lib,"ws2_32.lib") 
-
-#define MAX_FILENAME 100
-
-int get_file_name(char file_name[]);
-char get_bit(char buffer[], int n_bit);
-void set_bit(char buffer[], int n_bit, int val);
-int is2pow(int num);
-int get_file_size(FILE* fp);
-void hamming_encode(char buffer[], int size, char h_buffer[]);
-
+#include "sender.h"
 
 // get file name from the user, return 0 if user entered "quit"
 int get_file_name(char file_name[])
@@ -62,9 +44,9 @@ int get_file_size(FILE* fp)
 	return file_size;
 }
 
-void hamming_encode(char buffer[], int size, char h_buffer[])
+void hamming_encode(char buffer[], int size, char hammed_buffer[])
 {
-	int block, offset, check_idx, h_offset;
+	int block, offset, check_idx, hammed_offset;
 	int Check[5] = { 0 };
 
 	for (block = 0; block < (8 * size) / 26; block++)
@@ -74,24 +56,24 @@ void hamming_encode(char buffer[], int size, char h_buffer[])
 			Check[check_idx] = 0;
 
 		// Set data bits to the new buffer
-		for (h_offset = 0, offset = 0; h_offset < 31; h_offset++)
-			if (!is2pow(h_offset + 1))
+		for (hammed_offset = 0, offset = 0; hammed_offset < 31; hammed_offset++)
+			if (!is2pow(hammed_offset + 1))
 			{
-				set_bit(h_buffer, h_offset + 31 * block, get_bit(buffer, offset + 26 * block));
+				set_bit(hammed_buffer, hammed_offset + 31 * block, get_bit(buffer, offset + 26 * block));
 				offset++;
 			}
 		
 		// Calculate parities for the check bits
-		for (h_offset = 0; h_offset < 31; h_offset++)
+		for (hammed_offset = 0; hammed_offset < 31; hammed_offset++)
 			for (check_idx = 0; check_idx < 5; check_idx++)
-				if (((h_offset + 1) & (1 << check_idx)) && !is2pow(h_offset + 1))
-					Check[check_idx] ^= get_bit(h_buffer, h_offset + 31 * block);
+				if (((hammed_offset + 1) & (1 << check_idx)) && !is2pow(hammed_offset + 1))
+					Check[check_idx] ^= get_bit(hammed_buffer, hammed_offset + 31 * block);
 
 		// Set check bits to the new buffer
-		for (h_offset = 0, check_idx = 0; h_offset < 31; h_offset++)
-			if (is2pow(h_offset + 1))
+		for (hammed_offset = 0, check_idx = 0; hammed_offset < 31; hammed_offset++)
+			if (is2pow(hammed_offset + 1))
 			{
-				set_bit(h_buffer, h_offset + 31 * block, Check[check_idx]);
+				set_bit(hammed_buffer, hammed_offset + 31 * block, Check[check_idx]);
 				check_idx++;
 			}
 	}
@@ -100,9 +82,9 @@ void hamming_encode(char buffer[], int size, char h_buffer[])
 
 int main(int argc, char* argv[])
 {
-	int status, file_size, sent_bytes, h_size;
+	int status, file_size, sent_bytes, hammed_size;
 	char file_name[MAX_FILENAME];
-	char* buffer, * h_buffer;
+	char* buffer, * hammed_buffer;
 	WSADATA wsaData;
 	SOCKET sock;
 	SOCKADDR_IN server;
@@ -167,18 +149,18 @@ int main(int argc, char* argv[])
 		fclose(fp);
 
 		// Hamming encoding
-		h_size = file_size * (31.0 / 26.0);
-		h_buffer = (char*)malloc(sizeof(char) * h_size);
-		if (h_buffer == NULL)
+		hammed_size = file_size * (31.0 / 26.0);
+		hammed_buffer = (char*)malloc(sizeof(char) * hammed_size);
+		if (hammed_buffer == NULL)
 		{
 			fprintf(stderr, "Memory alloaction failed\n");
 			exit(1);
 		}
-		hamming_encode(buffer, file_size, h_buffer);
+		hamming_encode(buffer, file_size, hammed_buffer);
 		free(buffer);
 
 		// Send data to the server
-		sent_bytes = send(sock, h_buffer, h_size, 0);
+		sent_bytes = send(sock, hammed_buffer, hammed_size, 0);
 		if (sent_bytes < 0)
 		{
 			fprintf(stderr, "Send failed\n");
@@ -186,7 +168,7 @@ int main(int argc, char* argv[])
 		}
 		printf("sent: %d bytes\n", sent_bytes);
 
-		free(h_buffer);
+		free(hammed_buffer);
 		closesocket(sock);
 
 	}
