@@ -1,6 +1,6 @@
 
 # Introduction to Computer Communications Course 
-## Tel Aviv University - Spring Semester 2022
+## Tel Aviv University (TAU) - Spring Semester 2022
 
 ### 1) Proramming Assignment 1: Noisy Channel
 > **How to run:**   
